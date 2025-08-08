@@ -1,0 +1,19 @@
+{
+  "name": "zk-auction-wallet",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "circuits:compile": "bash circuits/scripts/build.sh",
+    "circuits:ptau": "bash circuits/scripts/init_ptau.sh",
+    "circuits:setup": "bash circuits/scripts/setup.sh",
+    "circuits:prove": "bash circuits/scripts/prove.sh",
+    "circuits:verify": "bash circuits/scripts/verify.sh",
+    "circuits:export:verifier": "bash circuits/scripts/export_verifier.sh"
+  },
+  "devDependencies": {
+    "snarkjs": "^0.7.5",
+    "circomlib": "^2.0.5"
+  }
+}
+
+

@@ -1,0 +1,90 @@
+openapi: 3.0.3
+info:
+  title: zkAuction Mock Relayer API
+  version: 0.1.0
+  description: Minimal HTTP API for accepting bundles and simulating an auction
+servers:
+  - url: http://localhost:8080
+  - url: https://docs.flashbots.net/flashbots-protect/overview
+    description: Reference for private routing (external)
+paths:
+  /health:
+    get:
+      summary: Liveness probe
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+  /bundle:
+    post:
+      summary: Submit a transaction bundle with ZK proof
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BundleRequest'
+      responses:
+        '200':
+          description: Auction simulated and tx submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BundleResponse'
+        '400':
+          description: Invalid request
+        '500':
+          description: Internal error
+components:
+  schemas:
+    BundleRequest:
+      type: object
+      required: [tx, proof, publicInputs]
+      properties:
+        tx:
+          type: string
+          description: RLP-encoded or hex-serialized transaction for submission
+          example: 0x02f86b82012c...
+        proof:
+          type: object
+          description: Groth16 proof object (snarkjs JSON)
+          additionalProperties: true
+        publicInputs:
+          type: array
+          description: Public signals expected by the on-chain verifier
+          items:
+            type: string
+          example: ["1698624000", "0x1234abcd..."]
+    BundleResponse:
+      type: object
+      properties:
+        accepted:
+          type: boolean
+          example: true
+        winner:
+          type: string
+          description: Identifier of winning mock searcher
+          example: searcher-b
+        bidGwei:
+          type: number
+          example: 6
+        txHash:
+          type: string
+          example: 0xdeadbeef...
+        logs:
+          type: array
+          items:
+            type: string
+          example:
+            - "Relayer received tx"
+            - "Searcher A bid 4 GWEI, B bid 6 GWEI → B wins"
+            - "Tx submitted to chain"
+
+

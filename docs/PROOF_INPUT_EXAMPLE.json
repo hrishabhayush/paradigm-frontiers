@@ -1,0 +1,10 @@
+{
+  "week_start": 1698624000,
+  "hash_of_tx_list": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+  "private": {
+    "total_spent": 80
+  },
+  "notes": "Demo-only example matching the < $100 constraint"
+}
+
+

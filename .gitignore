@@ -1,5 +1,23 @@
 .DS_Store
 
-.env
+node_modules/
 
-docs/
+.env
+.env.*
+
+# Node/TypeScript
+node_modules/
+dist/
+build/
+
+# Circom/snarkjs artifacts
+circuits/build/
+circuits/*.r1cs
+circuits/*.wasm
+circuits/*.zkey
+circuits/*.ptau
+circuits/verification_key.json
+
+# Outputs
+out/*
+!out/.gitkeep

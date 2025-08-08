@@ -11,6 +11,14 @@ Prove “I spent < $100 this week” privately; route tx via a mock auction rela
 - Frontend Spec: `docs/FRONTEND_SPEC.md`
 - Integration Test Plan: `docs/INTEGRATION_TEST_PLAN.md`
 
+### References
+- Circom: `https://docs.circom.io`
+- snarkjs: `https://github.com/iden3/snarkjs`
+- circomlib: `https://github.com/iden3/circomlib`
+- Noir: `https://docs.noir-lang.org`
+- Flashbots Protect: `https://docs.flashbots.net/flashbots-protect/overview`
+- Porto SDK: `https://porto.sh`
+
 ### Demo Flow (2 min)
 1) Set $100/wk limit in UI
 2) Prepare mock tx → generate ZK proof (via button)
