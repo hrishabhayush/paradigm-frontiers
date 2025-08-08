@@ -41,10 +41,10 @@ This plan turns the demo scope in `project.txt` into a concrete, time-boxed exec
 Acceptance: Given the example inputs in `docs/PROOF_INPUT_EXAMPLE.json`, a valid proof is produced and verified locally.
 
 ### 2) Backend Spending Tracker (Mock)
-- [x] Static JSON `mock/txs.json` matching schema in `project.txt`
-- [ ] Node script computes weekly spend and outputs prover inputs
-- [ ] Script invokes prover, returns `{ proof, publicSignals }`
-- [ ] Optional: CLI prints “Proof: User spent $420 this week”
+ - [x] Static JSON `mock/txs.json` matching schema in `project.txt`
+ - [x] ~~Node script computes weekly spend and outputs prover inputs~~
+ - [x] ~~Script invokes prover, returns `{ proof, publicSignals }`~~
+ - [x] ~~Optional: CLI prints “Proof: User spent $420 this week”~~
 
 Acceptance: Running the script prints the computed total and stores proof + public signals to `out/`.
 
