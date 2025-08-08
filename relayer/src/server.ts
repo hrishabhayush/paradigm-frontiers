@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import crypto from 'crypto';
 
 const app = express();
 app.use(cors());
@@ -26,7 +27,7 @@ app.post('/bundle', (req, res) => {
   console.log(`Searcher A bid ${bids[0].gwei} GWEI, B bid ${bids[1].gwei} GWEI → ${winner.who} wins`);
 
   // Mock "submission" to chain
-  const txHash = '0x' + [...crypto.getRandomValues(new Uint8Array(32))].map((b) => b.toString(16).padStart(2, '0')).join('');
+  const txHash = '0x' + crypto.randomBytes(32).toString('hex');
   console.log('Tx submitted to chain', txHash);
 
   return res.json({ accepted: true, winner: winner.who, bidGwei: winner.gwei, txHash, logs: [
