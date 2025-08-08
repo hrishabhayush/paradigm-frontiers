@@ -49,20 +49,20 @@ Acceptance: Given the example inputs in `docs/PROOF_INPUT_EXAMPLE.json`, a valid
 Acceptance: Running the script prints the computed total and stores proof + public signals to `out/`.
 
 ### 3) Porto Wallet Plugin
-- [ ] Fork Porto plugin template
-- [ ] Add `verifyProof(bytes proof, uint256[] publicInputs)` using generated verifier
-- [ ] Add `requireRelayer(address expected)` guard on execution entrypoint
-- [ ] Config storage: `spendLimit`, `relayerAddress`, `recoveryAddress`
-- [ ] Unit tests: valid proof passes; invalid proof reverts; wrong relayer reverts
+- [x] ~~Fork Porto plugin template~~ (scaffolded Hardhat + plugin contract)
+- [x] ~~Add `verifyProof` using generated verifier~~
+- [x] ~~Add `requireRelayer(address expected)` guard on execution entrypoint~~
+- [x] ~~Config storage: `spendLimit`, `relayerAddress`, `recoveryAddress`~~
+- [x] ~~Unit tests: valid proof passes; invalid proof reverts; wrong relayer reverts~~
 
 Acceptance: All unit tests pass locally; gas within demo-tolerable bounds.
 
 ### 4) Auction-Based Relayer (Mock)
-- [ ] HTTP server POST `/bundle` accepts `{ tx, proof, publicInputs }`
-- [ ] Simulate 2+ searchers placing random bids (stdout logs)
-- [ ] Choose winner; “submit” tx to chain (mock Provider or testnet)
-- [ ] Log: “Relayer received tx”, bids, winner, submission
-- [ ] GET `/health` returns `ok`
+- [x] ~~HTTP server POST `/bundle` accepts `{ tx, proof, publicInputs }`~~
+- [x] ~~Simulate 2+ searchers placing random bids (stdout logs)~~
+- [x] ~~Choose winner; “submit” tx to chain (mock Provider or testnet)~~
+- [x] ~~Log: “Relayer received tx”, bids, winner, submission~~
+- [x] ~~GET `/health` returns `ok`~~
 
 Acceptance: cURL to `/bundle` shows auction logs and a submission result.
 
