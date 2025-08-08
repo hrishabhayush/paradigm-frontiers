@@ -67,11 +67,11 @@ Acceptance: All unit tests pass locally; gas within demo-tolerable bounds.
 Acceptance: cURL to `/bundle` shows auction logs and a submission result.
 
 ### 5) Frontend App (React + Porto SDK)
-- [ ] Connect wallet (Porto SDK)
-- [ ] Send USDC form: amount + recipient
-- [ ] Button: “Generate ZK Proof” (calls backend mock)
-- [ ] Button: “Submit Privately” (POST to relayer)
-- [ ] On success: show “Tx Confirmed” and optional decoded ZK inputs
+ - [x] ~~Connect wallet (Porto SDK)~~ (basic connect button; headless fallback)
+ - [x] ~~Send USDC form: amount + recipient~~
+ - [x] ~~Button: “Generate ZK Proof” (calls backend mock)~~
+ - [x] ~~Button: “Submit Privately” (POST to relayer)~~
+ - [x] ~~On success: show “Tx Confirmed” and optional decoded ZK inputs~~
 
 Acceptance: In the browser, the happy path produces visible confirmation and proof summary.
 

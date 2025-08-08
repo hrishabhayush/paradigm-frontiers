@@ -3,8 +3,9 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import fs from 'fs';
-import { buildProofInputs, computeWeekStart, defaultPaths, loadMockTxs } from './computeInputs.ts';
-import { runWitnessAndProve, writeInputJson } from './prover.ts';
+// Note: For Node ESM, import with explicit .js so dist/server.js resolves correctly
+import { buildProofInputs, computeWeekStart, defaultPaths, loadMockTxs } from './computeInputs.js';
+import { runWitnessAndProve, writeInputJson } from './prover.js';
 
 const app = express();
 app.use(cors());

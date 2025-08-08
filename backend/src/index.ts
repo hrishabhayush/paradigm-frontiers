@@ -1,8 +1,9 @@
 import 'dotenv/config';
 import path from 'path';
 import fs from 'fs';
-import { buildProofInputs, computeWeekStart, defaultPaths, loadMockTxs } from './computeInputs.ts';
-import { runWitnessAndProve, writeInputJson } from './prover.ts';
+// Note: For Node ESM, import with explicit .js so dist/index.js resolves correctly
+import { buildProofInputs, computeWeekStart, defaultPaths, loadMockTxs } from './computeInputs.js';
+import { runWitnessAndProve, writeInputJson } from './prover.js';
 
 async function main() {
   const paths = defaultPaths();

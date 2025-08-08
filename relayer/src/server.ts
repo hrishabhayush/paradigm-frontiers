@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import crypto from 'crypto';
+import { ethers } from 'ethers';
 
 const app = express();
 app.use(cors());
@@ -11,7 +12,13 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'ok' });
 });
 
-app.post('/bundle', (req, res) => {
+// Optional devnet wiring
+const rpcUrl = process.env.RELAYER_RPC_URL;
+const relayerKey = process.env.RELAYER_PRIVATE_KEY;
+const provider = rpcUrl ? new ethers.JsonRpcProvider(rpcUrl) : undefined;
+const wallet = provider && relayerKey ? new ethers.Wallet(relayerKey, provider) : undefined;
+
+app.post('/bundle', async (req, res) => {
   const { tx, proof, publicInputs } = req.body || {};
   console.log('Relayer received tx');
   if (!tx || !proof || !publicInputs) {
@@ -26,9 +33,23 @@ app.post('/bundle', (req, res) => {
   const winner = bids.reduce((a, b) => (a.gwei >= b.gwei ? a : b));
   console.log(`Searcher A bid ${bids[0].gwei} GWEI, B bid ${bids[1].gwei} GWEI → ${winner.who} wins`);
 
-  // Mock "submission" to chain
-  const txHash = '0x' + crypto.randomBytes(32).toString('hex');
-  console.log('Tx submitted to chain', txHash);
+  // If configured, submit a real transaction to devnet; else mock a hash
+  let txHash: string;
+  if (wallet) {
+    try {
+      const sent = await wallet.sendTransaction({ to: wallet.address, value: 0n });
+      console.log('Broadcasted tx', sent.hash);
+      await sent.wait(1);
+      txHash = sent.hash;
+    } catch (e) {
+      console.error('Broadcast error; falling back to mock hash:', (e as Error)?.message);
+      txHash = '0x' + crypto.randomBytes(32).toString('hex');
+    }
+  } else {
+    // Mock "submission" to chain
+    txHash = '0x' + crypto.randomBytes(32).toString('hex');
+    console.log('Tx submitted to chain (mock)', txHash);
+  }
 
   return res.json({ accepted: true, winner: winner.who, bidGwei: winner.gwei, txHash, logs: [
     'Relayer received tx',
