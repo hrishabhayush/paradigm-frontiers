@@ -15,6 +15,8 @@ app.get('/health', (_req, res) => {
 // Optional devnet wiring
 const rpcUrl = process.env.RELAYER_RPC_URL;
 const relayerKey = process.env.RELAYER_PRIVATE_KEY;
+// Optional: set a block explorer tx URL prefix, e.g. https://sepolia.etherscan.io/tx/
+const explorerTxPrefix = process.env.RELAYER_EXPLORER_TX_PREFIX || '';
 const provider = rpcUrl ? new ethers.JsonRpcProvider(rpcUrl) : undefined;
 const wallet = provider && relayerKey ? new ethers.Wallet(relayerKey, provider) : undefined;
 
@@ -51,7 +53,9 @@ app.post('/bundle', async (req, res) => {
     console.log('Tx submitted to chain (mock)', txHash);
   }
 
-  return res.json({ accepted: true, winner: winner.who, bidGwei: winner.gwei, txHash, logs: [
+  const txUrl = explorerTxPrefix && txHash ? `${explorerTxPrefix}${txHash}` : undefined;
+
+  return res.json({ accepted: true, winner: winner.who, bidGwei: winner.gwei, txHash, txUrl, logs: [
     'Relayer received tx',
     `Searcher A bid ${bids[0].gwei} GWEI, B bid ${bids[1].gwei} GWEI → ${winner.who} wins`,
     'Tx submitted to chain'
